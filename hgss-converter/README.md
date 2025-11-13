@@ -15,15 +15,15 @@ A command-line tool for converting between HGSS and various geospatial formats (
 ### From Source
 
 ```bash
-git clone https://github.com/sulacolab/hgss-converter.git
-cd hgss-converter
+git clone https://github.com/sulacolab/hgss.git
+cd hgss/hgss-converter
 go mod tidy
 make build
 ```
 
 ### Pre-built Binaries
 
-Download from the [releases page](https://github.com/sulacolab/hgss-converter/releases).
+Download from the [releases page](https://github.com/sulacolab/hgss/releases).
 
 ## Usage
 
