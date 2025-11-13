@@ -1,135 +1,196 @@
 # HGSS API Reference
 
-This document provides reference for JavaScript/TypeScript utilities to work with HGSS documents.
+This document provides reference for the JavaScript/TypeScript HGSS library with reactive mirrors.
 
-## Functions
+## Installation
 
-### resolveStyle(node, styles, parentStyle = {})
-
-Resolves the final style for a node by applying the cascade priority.
-
-**Parameters:**
-- `node` (object): HGSS node object
-- `styles` (object): Global styles registry
-- `parentStyle` (object): Inherited style from parent (default: {})
-
-**Returns:** Object with resolved style properties
-
-**Example:**
-```js
-const styles = {
-  "{Polygon}": { fill: "#ccc" },
-  "#zone_a": { fill: "#ff0000" }
-};
-const node = {
-  id: "zone_a",
-  type: "Polygon",
-  style: { fillOpacity: 0.5 }
-};
-const resolved = resolveStyle(node, styles);
-// { fill: "#ff0000", fillOpacity: 0.5 }
+```bash
+npm install @hgss/javascript-converter
 ```
 
-### flattenHGSS(root, path = "root", acc = [])
+## Core Classes
 
-Flattens the HGSS tree into a GeoJSON FeatureCollection array.
+### HGSSMirror
 
-**Parameters:**
-- `root` (object): HGSS root node
-- `path` (string): Current path in tree (default: "root")
-- `acc` (array): Accumulator for features (default: [])
+Main class for reactive data mirroring between HGSS and other formats.
 
-**Returns:** Array of GeoJSON Feature objects
-
-**Example:**
-```js
-const hgss = { /* HGSS document */ };
-const features = flattenHGSS(hgss.root);
-console.log(features); // [{ type: "Feature", ... }, ...]
+```typescript
+class HGSSMirror {
+  constructor(hgss: HGSSDocument, converters: Record<string, Converter>);
+  get(format: string): any;
+  setHGSS(hgss: HGSSDocument): void;
+  addConverter(name: string, converter: Converter): void;
+}
 ```
 
-### computeCentroid(geometry)
-
-Computes the centroid of a GeoJSON geometry.
-
 **Parameters:**
-- `geometry` (object): GeoJSON geometry object
+- `hgss`: HGSS document object
+- `converters`: Object mapping format names to converter instances
 
-**Returns:** Array [lon, lat] or null if unsupported
+**Methods:**
+- `get(format)`: Returns the mirrored data in specified format
+- `setHGSS(hgss)`: Updates the HGSS document and refreshes all mirrors
+- `addConverter(name, converter)`: Adds a new format converter
 
-**Supported types:** Point, LineString, Polygon, MultiPoint, MultiLineString, MultiPolygon
+### Converter Interface
 
-### validateHGSS(document)
+Interface for format converters.
 
-Validates an HGSS document against the JSON schema.
+```typescript
+interface Converter {
+  toHGSS(data: any): HGSSDocument;
+  fromHGSS(hgss: HGSSDocument): any;
+}
+```
 
-**Parameters:**
-- `document` (object): HGSS document
+## Built-in Converters
 
-**Returns:** Boolean - true if valid, throws error if invalid
+### GeoJSONConverter
 
-### convertGeoJSONToHGSS(geojson)
+Converts between HGSS and GeoJSON FeatureCollection.
 
-Converts a GeoJSON FeatureCollection to HGSS.
+```typescript
+class GeoJSONConverter implements Converter {
+  toHGSS(data: GeoJSONFeatureCollection): HGSSDocument;
+  fromHGSS(hgss: HGSSDocument): GeoJSONFeatureCollection;
+}
+```
 
-**Parameters:**
-- `geojson` (object): GeoJSON FeatureCollection
+### KMLConverter
 
-**Returns:** HGSS document object
+Converts between HGSS and KML (XML string).
 
-### convertHGSStoGeoJSON(hgss)
+```typescript
+class KMLConverter implements Converter {
+  toHGSS(data: string): HGSSDocument; // KML as XML string
+  fromHGSS(hgss: HGSSDocument): string; // Returns KML XML string
+}
+```
 
-Converts HGSS to GeoJSON FeatureCollection.
-
-**Parameters:**
-- `hgss` (object): HGSS document
-
-**Returns:** GeoJSON FeatureCollection object
-
-## Classes
+## Type Definitions
 
 ### HGSSDocument
 
-Class representing an HGSS document.
-
-**Methods:**
-- `constructor(data)`: Initialize with HGSS object
-- `validate()`: Validate document
-- `flatten()`: Return flattened GeoJSON features
-- `resolveStyle(nodeId)`: Get resolved style for node by ID
-- `getNodeById(id)`: Find node by ID
-- `addNode(parentId, node)`: Add child node
-- `removeNode(id)`: Remove node by ID
-
-**Example:**
-```js
-const doc = new HGSSDocument(hgssData);
-doc.validate();
-const features = doc.flatten();
-```
-
-## TypeScript Types
-
-```ts
+```typescript
 interface HGSSDocument {
   type: "HGSS";
   version: string;
   name?: string;
   description?: string;
-  styles: Record<string, StyleProperties>;
+  styles: Record<string, any>;
   root: Node;
 }
+```
 
+### Node
+
+```typescript
 interface Node {
   id: string;
-  type: string;
+  type: string; // "Group" or GeoJSON geometry type
   name?: string;
   description?: string;
   coordinates?: [number, number] | [number, number, number];
-  geometry?: GeoJSON.Geometry;
-  style?: StyleProperties;
+  geometry?: Geometry;
+  style?: Record<string, any>;
   children?: Node[];
 }
-
-type StyleProperties = Record<string, any>;
 ```
+
+### Geometry
+
+```typescript
+interface Geometry {
+  type: string;
+  coordinates: any;
+}
+```
+
+### GeoJSON Types
+
+```typescript
+interface GeoJSONFeatureCollection {
+  type: "FeatureCollection";
+  features: GeoJSONFeature[];
+}
+
+interface GeoJSONFeature {
+  type: "Feature";
+  id?: string | number;
+  geometry: GeoJSONGeometry;
+  properties: Record<string, any>;
+}
+
+interface GeoJSONGeometry {
+  type: string;
+  coordinates: any;
+}
+```
+
+## Reactive Behavior
+
+The HGSSMirror uses JavaScript Proxies to automatically detect changes to the HGSS document:
+
+```typescript
+const mirror = new HGSSMirror(hgssDoc, { geojson: new GeoJSONConverter() });
+
+// Changes to hgssDoc automatically update mirrors
+hgssDoc.root.children.push({
+  id: "newPoint",
+  type: "Point",
+  geometry: { type: "Point", coordinates: [1, 1] }
+});
+
+const geojson = mirror.get('geojson'); // Updated automatically
+```
+
+## Custom Converters
+
+Create custom converters by implementing the Converter interface:
+
+```typescript
+class CustomConverter implements Converter {
+  toHGSS(data: any): HGSSDocument {
+    // Implement conversion logic
+    return {
+      type: "HGSS",
+      version: "1.0",
+      styles: {},
+      root: {
+        id: "root",
+        type: "Group",
+        children: [] // Convert data to HGSS nodes
+      }
+    };
+  }
+
+  fromHGSS(hgss: HGSSDocument): any {
+    // Implement conversion logic
+    return {}; // Convert HGSS to target format
+  }
+}
+
+// Add to mirror
+const mirror = new HGSSMirror(hgssDoc, {
+  custom: new CustomConverter()
+});
+```
+
+## Error Handling
+
+Converters may throw errors for invalid input data. Always wrap operations in try-catch:
+
+```typescript
+try {
+  const geojson = mirror.get('geojson');
+  // Process geojson
+} catch (error) {
+  console.error('Conversion failed:', error);
+}
+```
+
+## Performance Notes
+
+- Mirrors are updated lazily when `get()` is called
+- Deep object changes are tracked efficiently using Proxies
+- Large documents may benefit from selective mirroring (only needed formats)
