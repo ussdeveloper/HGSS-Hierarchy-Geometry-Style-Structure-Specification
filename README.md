@@ -12,6 +12,7 @@
 - [Quick Start](#quick-start)
 - [Specification](#specification)
 - [Examples](#examples)
+- [Adapters](#adapters)
 - [API Reference](#api-reference)
 - [Contributing](#contributing)
 - [License](#license)
@@ -95,6 +96,32 @@ Key components:
 See [examples/](examples/) for sample HGSS files.
 
 - [demo.hgss.json](examples/demo.hgss.json) - Basic example with zones and points
+
+## Adapters
+
+Language-specific libraries for working with HGSS:
+
+### JavaScript/TypeScript
+
+Professional reactive converter library with automatic synchronization.
+
+- **Location**: [adapters/javascript-converter/](adapters/javascript-converter/)
+- **Features**: Reactive mirrors, TypeScript support, extensible converters
+- **Installation**: `npm install @hgss/javascript-converter`
+
+```typescript
+import { HGSSMirror, GeoJSONConverter } from '@hgss/javascript-converter';
+
+const mirror = new HGSSMirror(hgssDoc, { geojson: new GeoJSONConverter() });
+const geojson = mirror.get('geojson'); // Automatically updates when HGSS changes
+```
+
+### Go
+
+Command-line converter for GeoJSON and KML.
+
+- **Location**: [hgss-converter/](hgss-converter/)
+- **Usage**: `hgss-converter -i input.json -o output.json -f geojson -t hgss`
 
 ## API Reference
 
