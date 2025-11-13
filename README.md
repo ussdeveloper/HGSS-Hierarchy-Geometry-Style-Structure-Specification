@@ -125,7 +125,6 @@ This project is licensed under the Creative Commons Attribution-ShareAlike 4.0 I
 ## Authors
 
 - **Przemysław Lusina** (SulacoLab) - Lead Author
-- **ChatGPT (GPT-5 Thinking)** - Contributor
 
 ## Changelog
 

@@ -3,7 +3,6 @@
 
 **Status:** Draft Standard  
 **Author:** Przemysław Lusina (SulacoLab)  
-**Contributors:** ChatGPT (GPT‑5 Thinking)  
 **Date:** 2025-11-13  
 **License:** CC‑BY‑SA 4.0  
 **Document ID:** HGSS‑RFC‑001
@@ -199,7 +198,6 @@ ajv validate -s spec/hgss.schema.json -d examples/demo.hgss.json
 
 **Status:** Draft Standard  
 **Author:** Przemysław Lusina (SulacoLab)  
-**Contributors:** ChatGPT (GPT‑5 Thinking)  
 **Date:** 2025-11-13  
 **License:** CC‑BY‑SA 4.0  
 **Document ID:** HGSS‑RFC‑001
