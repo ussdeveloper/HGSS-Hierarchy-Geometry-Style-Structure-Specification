@@ -1,0 +1,51 @@
+{
+  "type": "HGSS",
+  "version": "1.0",
+  "name": "Sample HGSS Document",
+  "styles": {
+    "{Polygon}": {
+      "fill": "#ccc",
+      "stroke": "#444"
+    },
+    "{Point}": {
+      "icon": "marker",
+      "size": 12
+    }
+  },
+  "root": {
+    "id": "root",
+    "type": "Group",
+    "name": "Sample Data",
+    "children": [
+      {
+        "id": "point1",
+        "type": "Point",
+        "name": "Sample Point",
+        "description": "A sample point feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [19.945, 50.005]
+        }
+      },
+      {
+        "id": "polygon1",
+        "type": "Polygon",
+        "name": "Sample Polygon",
+        "description": "A sample polygon feature",
+        "coordinates": [19.9445, 50.006],
+        "geometry": {
+          "type": "Polygon",
+          "coordinates": [
+            [
+              [19.938, 50.000],
+              [19.950, 50.000],
+              [19.950, 50.010],
+              [19.938, 50.010],
+              [19.938, 50.000]
+            ]
+          ]
+        }
+      }
+    ]
+  }
+}

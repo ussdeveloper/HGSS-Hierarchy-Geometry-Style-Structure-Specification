@@ -1,0 +1,95 @@
+{
+  "type": "HGSS",
+  "version": "1.0",
+  "name": "Uzdrowisko Swoszowice",
+  "styles": {
+    "{Polygon}": {
+      "stroke": "#444",
+      "stroke-width": 1,
+      "fill": "#ccc",
+      "fill-opacity": 0.3
+    },
+    "{Point}": {
+      "icon": "poi-default",
+      "size": 10
+    },
+    "#zone_a": {
+      "fill": "#ff0000",
+      "fill-opacity": 0.4
+    }
+  },
+  "root": {
+    "id": "root",
+    "type": "Group",
+    "name": "Warstwy",
+    "coordinates": [
+      19.945,
+      50.005
+    ],
+    "children": [
+      {
+        "id": "districts",
+        "type": "Group",
+        "name": "Strefy",
+        "coordinates": [
+          19.949,
+          50.0075
+        ],
+        "children": [
+          {
+            "id": "zone_a",
+            "type": "Polygon",
+            "name": "Strefa A",
+            "description": "Strefa ścisłej ochrony.",
+            "coordinates": [
+              19.9445,
+              50.006
+            ],
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    19.938,
+                    50.0
+                  ],
+                  [
+                    19.95,
+                    50.0
+                  ],
+                  [
+                    19.95,
+                    50.01
+                  ],
+                  [
+                    19.938,
+                    50.01
+                  ],
+                  [
+                    19.938,
+                    50.0
+                  ]
+                ]
+              ]
+            },
+            "style": {
+              "fill-opacity": 0.5
+            }
+          },
+          {
+            "id": "poi_center",
+            "type": "Point",
+            "name": "Punkt informacyjny",
+            "geometry": {
+              "type": "Point",
+              "coordinates": [
+                19.945,
+                50.005
+              ]
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

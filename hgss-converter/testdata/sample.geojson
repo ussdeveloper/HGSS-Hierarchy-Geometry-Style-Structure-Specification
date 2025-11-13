@@ -1,0 +1,38 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "point1",
+      "properties": {
+        "name": "Sample Point",
+        "description": "A sample point feature"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [19.945, 50.005]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "polygon1",
+      "properties": {
+        "name": "Sample Polygon",
+        "description": "A sample polygon feature",
+        "label_coordinates": [19.9445, 50.006]
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [19.938, 50.000],
+            [19.950, 50.000],
+            [19.950, 50.010],
+            [19.938, 50.010],
+            [19.938, 50.000]
+          ]
+        ]
+      }
+    }
+  ]
+}

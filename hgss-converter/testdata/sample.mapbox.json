@@ -1,0 +1,35 @@
+{
+  "version": 8,
+  "name": "Sample Mapbox Style",
+  "sources": {
+    "sample": {
+      "type": "geojson",
+      "data": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "name": "Zone A"
+            },
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [[[19.938,50.000],[19.950,50.000],[19.950,50.010],[19.938,50.010],[19.938,50.000]]]
+            }
+          }
+        ]
+      }
+    }
+  },
+  "layers": [
+    {
+      "id": "zones",
+      "type": "fill",
+      "source": "sample",
+      "paint": {
+        "fill-color": "#cccccc",
+        "fill-opacity": 0.3
+      }
+    }
+  ]
+}

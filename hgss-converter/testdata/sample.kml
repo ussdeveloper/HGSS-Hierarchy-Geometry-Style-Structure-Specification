@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Sample KML</name>
+    <Style id="polygonStyle">
+      <PolyStyle>
+        <color>ffcccccc</color>
+        <fill>1</fill>
+        <outline>1</outline>
+      </PolyStyle>
+      <LineStyle>
+        <color>ff444444</color>
+        <width>1</width>
+      </LineStyle>
+    </Style>
+    <Folder>
+      <name>Zones</name>
+      <Placemark>
+        <name>Zone A</name>
+        <description>Sample zone</description>
+        <styleUrl>#polygonStyle</styleUrl>
+        <Polygon>
+          <outerBoundaryIs>
+            <LinearRing>
+              <coordinates>
+                19.938,50.000 19.950,50.000 19.950,50.010 19.938,50.010 19.938,50.000
+              </coordinates>
+            </LinearRing>
+          </outerBoundaryIs>
+        </Polygon>
+      </Placemark>
+      <Placemark>
+        <name>Point of Interest</name>
+        <Point>
+          <coordinates>19.945,50.005</coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

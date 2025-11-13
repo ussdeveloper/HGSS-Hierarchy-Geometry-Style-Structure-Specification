@@ -1,0 +1,28 @@
+<mxfile host="app.diagrams.net" modified="2025-11-13T17:19:56Z" agent="HGSS-Generator" version="24.7.7">
+  <diagram id="hgss-structure" name="HGSS Structure">
+    <mxGraphModel dx="1280" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="node_hgss" value="HGSS (type, version, name, description, styles, root)" style="shape=rectangle;whiteSpace=wrap;rounded=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1"><mxGeometry x="60" y="40" width="360" height="80" as="geometry"/></mxCell>
+        <mxCell id="node_styles" value="styles: { '{Type}' | '#id' → style map }" style="shape=rectangle;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="60" y="150" width="360" height="70" as="geometry"/></mxCell>
+        <mxCell id="node_root" value="root: Node" style="shape=rectangle;rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="60" y="240" width="200" height="60" as="geometry"/></mxCell>
+        <mxCell id="node_node" value="Node (id, type, name?, description?, coordinates?, geometry?|children?, style?)" style="shape=rectangle;rounded=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1"><mxGeometry x="320" y="240" width="520" height="80" as="geometry"/></mxCell>
+        <mxCell id="node_geom" value="geometry (GeoJSON)" style="shape=rectangle;rounded=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1"><mxGeometry x="60" y="330" width="240" height="60" as="geometry"/></mxCell>
+        <mxCell id="node_children" value="children: Node[]" style="shape=rectangle;rounded=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1"><mxGeometry x="320" y="330" width="240" height="60" as="geometry"/></mxCell>
+        <mxCell id="node_label" value="coordinates [lon,lat,alt?] (label anchor)" style="shape=rectangle;rounded=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" vertex="1" parent="1"><mxGeometry x="580" y="330" width="260" height="60" as="geometry"/></mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="node_hgss" target="node_styles" style="endArrow=block;strokeColor=#6c8ebf;"/><mxCell id="e2" edge="1" parent="1" source="node_hgss" target="node_root" style="endArrow=block;strokeColor=#6c8ebf;"/><mxCell id="e3" edge="1" parent="1" source="node_root" target="node_node" style="endArrow=block;strokeColor=#d79b00;"/><mxCell id="e4" edge="1" parent="1" source="node_node" target="node_geom" style="endArrow=block;strokeColor=#d6b656;"/><mxCell id="e5" edge="1" parent="1" source="node_node" target="node_children" style="endArrow=block;strokeColor=#d6b656;"/><mxCell id="e6" edge="1" parent="1" source="node_node" target="node_label" style="endArrow=block;strokeColor=#d6b656;"/>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="conversion" name="Conversions (GeoJSON/KML ↔ HGSS)">
+    <mxGraphModel dx="1280" dy="720" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="geojson" value="GeoJSON&#10;FeatureCollection → Features" style="shape=process;rounded=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1"><mxGeometry x="60" y="60" width="260" height="80" as="geometry"/></mxCell>
+        <mxCell id="kml" value="KML&#10;Document/Folder/Placemark" style="shape=process;rounded=1;fillColor=#cfe2f3;strokeColor=#6fa8dc;" vertex="1" parent="1"><mxGeometry x="60" y="180" width="260" height="80" as="geometry"/></mxCell>
+        <mxCell id="hgss" value="HGSS&#10;root:Group → children" style="shape=process;rounded=1;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1"><mxGeometry x="420" y="120" width="280" height="100" as="geometry"/></mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="geojson" target="hgss" style="endArrow=block;"/><mxCell id="e8" edge="1" parent="1" source="kml" target="hgss" style="endArrow=block;"/><mxCell id="e9" edge="1" parent="1" source="hgss" target="geojson" style="endArrow=block;dashed=1;"/><mxCell id="e10" edge="1" parent="1" source="hgss" target="kml" style="endArrow=block;dashed=1;"/>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

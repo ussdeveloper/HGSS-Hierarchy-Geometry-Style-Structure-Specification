@@ -1,0 +1,11 @@
+#zones {
+  polygon-fill: #cccccc;
+  polygon-opacity: 0.3;
+  line-color: #444444;
+  line-width: 1;
+}
+
+#points {
+  marker-fill: #ff0000;
+  marker-width: 10;
+}
